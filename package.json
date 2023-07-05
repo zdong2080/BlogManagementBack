@@ -1,0 +1,22 @@
+{
+  "name": "blogbackend",
+  "version": "1.0.0",
+  "description": "Blog Management Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zdong2080/BlogManagementBack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zdong2080/BlogManagementBack/issues"
+  },
+  "homepage": "https://github.com/zdong2080/BlogManagementBack#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
