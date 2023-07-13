@@ -11,7 +11,6 @@ describe('Signup', function () {
 
     return handleSignup(email, password)
       .then((userRecord) => {
-        console.log(userRecord);
         expect(userRecord).to.exist;
         expect(userRecord.email).to.equal(email);
       });
