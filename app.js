@@ -1,36 +1,25 @@
 
-const {admin, serviceAccount} = require('./configuration/firebase.js');
+
 const express = require('express');
-const handleSignup = require('./auth/signup.js');
-const chai = require('chai');
-const expect = chai.expect;
-const request = require('supertest');
-// test if firebase configured correctly
-// async function testFirebase() {
-//   try {
-//     const firestore = admin.firestore();
-//     const data = {
-//       name: 'Boyu Li',
-//       email: 'liboyu1999@tamu.edu',
-//     };
+const app = express();
+const userRouter = require('./router/userRouter.js');
+const { connect } = require('./configuration/mongoDB.js');
 
-//     const docRef = firestore.collection('users').doc();
-//     await docRef.set(data);
+app.use(express.json());
 
-//     console.log('Test data added to Firestore successfully');
+// Mount the user router
+app.use('/users', userRouter);
 
-
-//   } catch (error) {
-//     console.error('Error testing Firebase:', error);
-//   }
-// }
-
-// testFirebase();
-
-
-
-// test if sign up is successful
-
+// Connect to the MongoDB server when the app starts
+connect().then(() => {
+  const port = 3001; // Choose any available port
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}).catch((err) => {
+  console.error('Error connecting to the database:', err);
+  process.exit(1); // Exit the app if there's an error in the database connection
+});
 
 
 

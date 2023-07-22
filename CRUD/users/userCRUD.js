@@ -1,17 +1,16 @@
-const { client,connect, close} = require('../../configuration/mongoDB.js');
+const { client,connect, close, db} = require('../../configuration/mongoDB.js');
 
 // Create a user instance with user_id, email passed from Firebase, and blog_id and name as null
 
 // Create a user instance with the provided user_id and email
-let db;
+
 const createUserInstance = async (user_id, email) => {
   try {
-    await connect();
-    db=client.db('userdb');
+    const db = await connect();
     const userInstance = {
       user_id,
       email,
-      blog_id: null,
+      blog_ids: null,
       name: null
     };
 
@@ -20,23 +19,18 @@ const createUserInstance = async (user_id, email) => {
   } catch (error) {
     console.error('Error creating user instance:', error);
     throw error;
-  } finally {
-    close();
   }
 };
 
 // Get a user instance by email
 const getUserByEmail = async (email) => {
+  const db = await connect();
   try {
-    connect();
-    db=client.db('userdb');
     const user = await db.collection('users').findOne({ email });
     return user;
   } catch (error) {
     console.error('Error retrieving user by email:', error);
     throw error;
-  } finally {
-    close();
   }
 };
 

@@ -12,16 +12,20 @@ const client = new MongoClient(url, {
 });
 
 
+let db = null; // Initialize db as null
+
 const connect = async () => {
   try {
-    await client.connect();
-    //console.log(1,db);
-    console.log('Connected successfully to the database');
+    if (!db) {
+      await client.connect();
+      db = client.db('userdb');
+      console.log('Connected successfully to the database');
+    }
+    return db; // Return the connected db object
   } catch (err) {
     console.error('Error connecting to the database:', err);
     throw err;
   }
-  
 };
 
 const close = () => {
